@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useVehicleForm } from './src/Estado/FormVehiculo';
-import { Step1VehicleScreen, Step2VehicleScreen, Step3SummaryScreen, VehiclesListScreen } from './src/Screens';
+import { Header, Step1VehicleScreen, Step2VehicleScreen, Step3SummaryScreen, VehiclesListScreen } from './src/Screens';
 
 export default function App() {
   const {
@@ -47,6 +47,11 @@ export default function App() {
           <VehiclesListScreen
             vehicles={vehicles}
             onRegisterAnother={startNew}
+          />
+        );
+      case 4:
+        return (
+          <Header
           />
         );
       default:

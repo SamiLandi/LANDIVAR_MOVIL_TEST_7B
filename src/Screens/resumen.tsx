@@ -26,9 +26,10 @@ export const Step3SummaryScreen = ({
                 <Text style={styles.row}>Año: {vehicle.year}</Text>
                 <Text style={styles.row}>Tipo de gasolina: {vehicle.fuelType}</Text>
             </View>
-
-            <FormButton label="Regresar" onPress={onBack} />
-            <FormButton label="Registrar vehículo" onPress={onRegister} />
+            <View style={styles.buttonsRow}>
+                <FormButton label="Regresar" onPress={onBack} />
+                <FormButton label="Registrar vehículo" onPress={onRegister} />
+            </View>
         </View>
     );
 };
@@ -56,4 +57,9 @@ const styles = StyleSheet.create({
         marginBottom: 8,
         color: '#111827',
     },
+    buttonsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
+
 });

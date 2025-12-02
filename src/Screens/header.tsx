@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         paddingVertical: 4,
         borderRadius: 4,
     },
-    // Examen text
+
     examText: {
         fontSize: 12,
         color: 'white',

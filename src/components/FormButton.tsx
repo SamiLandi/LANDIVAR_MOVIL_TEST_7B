@@ -16,11 +16,13 @@ export const FormButton = ({ label, style, ...props }: FormButtonProps) => {
 const styles = StyleSheet.create({
     button: {
         width: '100%',
+        flex: 0,
         borderRadius: 8,
-        paddingVertical: 12,
+        paddingVertical: 10,
         backgroundColor: '#2563eb',
         alignItems: 'center',
         marginTop: 24,
+        marginHorizontal: 5,
     },
     text: {
         color: '#fff',
