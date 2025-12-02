@@ -3,13 +3,13 @@ import { StyleSheet, Text, View } from 'react-native';
 import { FormInput, FormButton } from '../components';
 import { Vehicle } from '../models';
 
-type Step1VehicleScreenProps = {
+type regVehi1 = {
     vehicle: Vehicle;
     onChange: (field: keyof Vehicle, value: string) => void;
     onNext: () => void;
 };
 
-export const Step1VehicleScreen = ({ vehicle, onChange, onNext }: Step1VehicleScreenProps) => {
+export const Step1VehicleScreen = ({ vehicle, onChange, onNext }: regVehi1) => {
     const [showErrors, setShowErrors] = useState(false);
     const brandEmpty = vehicle.brand.trim() === '';
     const modelEmpty = vehicle.model.trim() === '';
@@ -53,6 +53,7 @@ export const Step1VehicleScreen = ({ vehicle, onChange, onNext }: Step1VehicleSc
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop: 60,
     },
     title: {
         fontSize: 20,

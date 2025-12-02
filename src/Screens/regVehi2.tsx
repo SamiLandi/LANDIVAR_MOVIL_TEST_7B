@@ -1,58 +1,90 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { FormInput, FormButton } from '../components';
+import { Vehicle } from '../models';
 
-export default function Paso2({ navigation, route }: any) {
-    const { marca, modelo } = route.params;
+type regVehi2 = {
+    vehicle: Vehicle;
+    onChange: (field: keyof Vehicle, value: string) => void;
+    onNext: () => void;
+    onBack: () => void;
+};
 
-    const [placa, setPlaca] = useState("");
-    const [duenio, setDuenio] = useState("");
-    const [anio, setAnio] = useState("");
-    const [gasolina, setGasolina] = useState("");
+export const Step2VehicleScreen = ({
+    vehicle,
+    onChange,
+    onNext,
+    onBack,
+}: regVehi2) => {
+    const [showErrors, setShowErrors] = useState(false);
+    const plateEmpty = vehicle.plate.trim() === '';
+    const ownerEmpty = vehicle.ownerName.trim() === '';
+    const yearEmpty = vehicle.year.trim() === '';
+    const fuelEmpty = vehicle.fuelType.trim() === '';
+    const isValid = !plateEmpty && !ownerEmpty && !yearEmpty && !fuelEmpty;
 
-    const continuar = () => {
-        if (!placa || !duenio || !anio || !gasolina) {
-            alert("Completa todos los campos");
-            return;
-        }
-
-        navigation.navigate("Paso3", {
-            marca,
-            modelo,
-            placa,
-            duenio,
-            anio,
-            gasolina,
-        });
+    const handleNext = () => {
+        if (isValid) onNext();
+        setShowErrors(true);
     };
 
     return (
-        <View style={{ padding: 20 }}>
-            <Text style={{ fontSize: 22, fontWeight: "bold" }}>
-                Registro de un vehículo – Paso 2 de 3
-            </Text>
+        <View style={styles.container}>
+            <Text style={styles.title}>Registro de un vehículo – Paso 2 de 3</Text>
 
-            <Text>Placa:</Text>
-            <TextInput style={{ borderWidth: 1 }} value={placa} onChangeText={setPlaca} />
-
-            <Text>Nombre del dueño:</Text>
-            <TextInput
-                style={{ borderWidth: 1 }}
-                value={duenio}
-                onChangeText={setDuenio}
+            <FormInput
+                label="Placa"
+                required
+                placeholder="ABC-1234"
+                autoCapitalize="characters"
+                value={vehicle.plate}
+                onChangeText={value => onChange('plate', value)}
+                smsError={showErrors && plateEmpty ? 'La placa es obligatoria' : undefined}
             />
 
-            <Text>Año:</Text>
-            <TextInput style={{ borderWidth: 1 }} value={anio} onChangeText={setAnio} />
-
-            <Text>Tipo de gasolina:</Text>
-            <TextInput
-                style={{ borderWidth: 1, marginBottom: 10 }}
-                value={gasolina}
-                onChangeText={setGasolina}
+            <FormInput
+                label="Nombre del dueño"
+                required
+                placeholder="Juan Pérez"
+                value={vehicle.ownerName}
+                onChangeText={value => onChange('ownerName', value)}
+                smsError={showErrors && ownerEmpty ? 'El nombre del dueño es obligatorio' : undefined}
             />
 
-            <Button title="Regresar" onPress={() => navigation.goBack()} />
-            <Button title="Continuar" onPress={continuar} />
+            <FormInput
+                label="Año"
+                required
+                typeInput="integer"
+                placeholder="2020"
+                keyboardType="numeric"
+                value={vehicle.year}
+                onChangeText={value => onChange('year', value)}
+                smsError={showErrors && yearEmpty ? 'El año es obligatorio' : undefined}
+            />
+
+            <FormInput
+                label="Tipo de gasolina"
+                required
+                placeholder="Extra / Súper / Diésel"
+                value={vehicle.fuelType}
+                onChangeText={value => onChange('fuelType', value)}
+                smsError={showErrors && fuelEmpty ? 'El tipo de gasolina es obligatorio' : undefined}
+            />
+
+            <FormButton label="Regresar" onPress={onBack} />
+            <FormButton label="Continuar" onPress={handleNext} />
         </View>
     );
-}
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop: 60,
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: '600',
+        marginBottom: 16,
+    },
+});
