@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useVehicleForm } from './src/state/useVehicleForm';
-import { Step1VehicleScreen, Step2VehicleScreen, Step3SummaryScreen, VehiclesListScreen } from './src/screens';
+import { useVehicleForm } from './src/Estado/FormVehiculo';
+import { Step1VehicleScreen, Step2VehicleScreen, Step3SummaryScreen, VehiclesListScreen } from './src/Screens';
 
 export default function App() {
   const {
